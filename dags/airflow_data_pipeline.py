@@ -23,13 +23,9 @@ args={
 with DAG('csvjsonDAG',
         default_args = args,
         schedule_interval=timedelta(minutes=5),
-        # '0 * * * *',
         ) as dag:
         starting_job = BashOperator(task_id = 'starting', bash_command='echo "Reading CSV file"')
         csvtojson = PythonOperator(task_id = 'convertCSVtoJSON', python_callable=csv_json)
         
 
         starting_job >> csvtojson
-
-
-
